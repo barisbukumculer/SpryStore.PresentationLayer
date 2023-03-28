@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpryStore.BusinessLayer.Abstract
 {
-    public interface IProductService:IGenericService<Product>
+    public interface IContactService:IGenericService<Contact>
     {
-        List<Product> TGetProductListWithCategory();
     }
 }
