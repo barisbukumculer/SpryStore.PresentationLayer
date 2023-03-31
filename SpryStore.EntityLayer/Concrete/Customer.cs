@@ -12,6 +12,7 @@ namespace SpryStore.EntityLayer.Concrete
         public string CustomerName { get; set; }
         public string CustomerSurname { get; set; }
         public string CustomerMail { get; set; }
+        public string CustomerImage { get; set; }
         public string CustomerCity { get; set; }
         public int CustomerBonus { get; set; }
     }

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using SpryStore.BusinessLayer.Abstract;
 using SpryStore.BusinessLayer.Concrete;
 using SpryStore.DataAccessLayer.Abstract;
+using SpryStore.DataAccessLayer.Concrete;
 using SpryStore.DataAccessLayer.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace SpryStore.PresentationLayer
     {
         public Startup(IConfiguration configuration)
         {
-           
+
             Configuration = configuration;
         }
 
@@ -28,17 +29,20 @@ namespace SpryStore.PresentationLayer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICategoryDal,EfCategoryDal>();
-            services.AddScoped<ICategoryService,CategoryManager>();
+            services.AddScoped<ICategoryDal, EfCategoryDal>();
+            services.AddScoped<ICategoryService, CategoryManager>();
 
-            services.AddScoped<IProductDal,EfProductDal>();
-            services.AddScoped<IProductService,ProductManager>();
+            services.AddScoped<IProductDal, EfProductDal>();
+            services.AddScoped<IProductService, ProductManager>();
 
             services.AddScoped<IEmployeeDal, EfEmployeeDal>();
-            services.AddScoped<IEmployeeService,EmployeeManager>();
+            services.AddScoped<IEmployeeService, EmployeeManager>();
 
             services.AddScoped<IContactDal, EfContactDal>();
             services.AddScoped<IContactService, ContactManager>();
+
+            services.AddDbContext<Context>();
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
 
             services.AddControllersWithViews();
         }
@@ -56,11 +60,12 @@ namespace SpryStore.PresentationLayer
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseStatusCodePagesWithReExecute("/ErrorPage/Page404","?cod={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

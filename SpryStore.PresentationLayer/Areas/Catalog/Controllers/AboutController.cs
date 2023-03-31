@@ -4,9 +4,12 @@ using SpryStore.BusinessLayer.Abstract;
 namespace SpryStore.PresentationLayer.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
+    
     public class AboutController : Controller
+        
     {
-        private readonly IEmployeeService _employeeService;
+       
+       private readonly IEmployeeService _employeeService;
 
         public AboutController(IEmployeeService employeeService)
         {
@@ -31,5 +34,6 @@ namespace SpryStore.PresentationLayer.Areas.Catalog.Controllers
             var values=_employeeService.TGetList();
             return PartialView(values);
         }
+     
     }
 }
