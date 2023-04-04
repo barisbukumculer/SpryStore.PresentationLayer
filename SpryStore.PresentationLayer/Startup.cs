@@ -9,6 +9,7 @@ using SpryStore.BusinessLayer.Concrete;
 using SpryStore.DataAccessLayer.Abstract;
 using SpryStore.DataAccessLayer.Concrete;
 using SpryStore.DataAccessLayer.EntityFramework;
+using SpryStore.PresentationLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace SpryStore.PresentationLayer
             services.AddScoped<IContactService, ContactManager>();
 
             services.AddDbContext<Context>();
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>();
 
             services.AddControllersWithViews();
         }
